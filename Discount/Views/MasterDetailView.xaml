@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Discount.Views.MasterDetailView">
+
+    <MasterDetailPage.Master>
+        <ContentPage Title="Options" x:Name="MasterPage">
+            <FlexLayout Direction="Column">
+                <StackLayout FlexLayout.AlignSelf="Stretch" Orientation="Horizontal" Padding="10" BackgroundColor="#6D2276">
+                    <Image Source="Discount.png" HeightRequest="60" WidthRequest="60" FlexLayout.AlignSelf="center" HorizontalOptions="Start"/>
+                    <Label Text="Discount Approvals" TextColor="White" FontSize="Large" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand"/>
+                </StackLayout>
+
+                <Button Text="Sign-out" TextColor="#211261" Command="{Binding SignOutCommand}" FlexLayout.AlignSelf="Stretch" FlexLayout.Order="2"/>
+            </FlexLayout>
+        </ContentPage>
+    </MasterDetailPage.Master>
+</MasterDetailPage>

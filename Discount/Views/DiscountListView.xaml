@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Discount.Views.DiscountListView" xmlns:customRenderers="using:Discount.CustomControls;assembly=CustomViewCell" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:customBehaviors="using:Discount.Behaviors;assembly=EventToCommandBehavior" BackgroundColor="White">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <StackLayout Orientation="Horizontal" BackgroundColor="#211261" HeightRequest="50">
+                <Label HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding HotelName}" TextColor="White" FontSize="Medium" FontAttributes="Bold" Margin="10,0,10,0">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding HotelNameLabelTappedCommand}" NumberOfTapsRequired="1" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <BoxView HeightRequest="40" WidthRequest="4" HorizontalOptions="Center" VerticalOptions="Center" Color="White" />
+                <Label HorizontalOptions="End" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding SelectedDate, Mode=OneWay,StringFormat='{0:yyyy MMM dd}'}" TextColor="White" FontSize="Medium" Margin="0,0,10,0">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CalenderIconTappedCommand}" NumberOfTapsRequired="1" CommandParameter="{x:Reference datePicker}" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" BackgroundColor="#efefef" HeightRequest="50" VerticalOptions="Start">
+                <Image Source="calendar.png" WidthRequest="40" HeightRequest="40" HorizontalOptions="Start" Margin="10,0,0,0">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CalenderIconTappedCommand}" NumberOfTapsRequired="1" CommandParameter="{x:Reference datePicker}" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <SearchBar HeightRequest="50" WidthRequest="250" HorizontalOptions="CenterAndExpand" PlaceholderColor="#BDBDBD" Placeholder="Search Reservation" Margin="10,10,10,10" Text="{Binding SearchText ,Mode=TwoWay}">
+                    <SearchBar.BackgroundColor>
+                        <OnPlatform x:TypeArguments="Color" iOS="White" Android="#efefef" />
+                    </SearchBar.BackgroundColor>
+                    <SearchBar.TextColor>
+                        <OnPlatform x:TypeArguments="Color" iOS="Black" Android="Black" />
+                    </SearchBar.TextColor>
+                    <SearchBar.Behaviors>
+                        <customBehaviors:EventToCommandBehavior EventName="TextChanged" Command="{Binding SearchBarTextChangedCommand}" />
+                        <customBehaviors:EventToCommandBehavior EventName="SearchButtonPressed" Command="{Binding SearchBarTextChangedCommand}" />
+                    </SearchBar.Behaviors>
+                </SearchBar>
+            </StackLayout>
+            <ActivityIndicator FlexLayout.AlignSelf="Center" HeightRequest="50" IsRunning="{Binding IsRunningIndicator}" IsVisible="{Binding IsRunningIndicator}" Color="Navy" />
+            <ListView x:Name="discountListView" RowHeight="100" SeparatorColor="#660099" SeparatorVisibility="Default" CachingStrategy="RetainElement" ItemsSource="{Binding PendingDiscountsList}" SelectedItem="{Binding SelectedItemModel, Mode=TwoWay}" IsVisible="{Binding IsListVisible}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <customRenderers:CustomViewCell SelectedBackgroundColor="#d8e7ff">
+                            <ViewCell.View>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
+                                    <BoxView WidthRequest="3" BackgroundColor="Navy" VerticalOptions="Center" HeightRequest="100" />
+                                    <StackLayout Padding="10,10,10,0" Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid Grid.Column="0" Grid.Row="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="2*" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Label Grid.Column="0" Grid.Row="0" x:Name="reservationNumberLabel" Text="{Binding ReservationID}" FontAttributes="Bold" FontSize="Medium" TextColor="Black" />
+                                                <Label Grid.Column="1" Grid.Row="0" x:Name="statusLabel" Text="{Binding Status}" FontAttributes="None" FontSize="Medium" TextColor="{Binding StatusColor}" />
+                                            </Grid>
+                                            <Label Grid.Column="0" Grid.Row="1" x:Name="guestNameLAbel" Text="{Binding GuestName}" FontAttributes="None" FontSize="Medium" />
+                                            <Label Grid.Column="0" Grid.Row="2" x:Name="clientNameLabel" Text="{Binding MainCustomerName}" FontAttributes="Italic" FontSize="Medium" />
+                                        </Grid>
+                                    </StackLayout>
+                                </StackLayout>
+                            </ViewCell.View>
+                        </customRenderers:CustomViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Behaviors>
+                    <customBehaviors:EventToCommandBehavior EventName="ItemSelected" Command="{Binding DescountListItemSelectedCommand}" />
+                </ListView.Behaviors>
+            </ListView>
+            <DatePicker x:Name="datePicker" VerticalOptions="CenterAndExpand" Date="{Binding SelectedDate, Mode=TwoWay}" IsVisible="{Binding IsCalenderVisible}">
+                <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+                <DatePicker.MinimumDate>
+                    <sys:DateTime x:FactoryMethod="Parse">
+                        <x:Arguments>
+                            <x:String>Jan 1 2015</x:String>
+                        </x:Arguments>
+                    </sys:DateTime>
+                </DatePicker.MinimumDate>
+                <DatePicker.MaximumDate>
+                    <sys:DateTime x:FactoryMethod="Parse">
+                        <x:Arguments>
+                            <x:String>Dec 31 2050</x:String>
+                        </x:Arguments>
+                    </sys:DateTime>
+                </DatePicker.MaximumDate>
+            </DatePicker>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

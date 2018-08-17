@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="Discount.Views.LoginView"
+             xmlns:customBehaviors="using:Discount.Behaviors;assembly=EventToCommandBehavior"
+             BackgroundColor="#6D2276">
+    
+    <ContentPage.Content>
+        
+        <FlexLayout Direction="Column" AlignItems="Center" JustifyContent="SpaceEvenly">
+
+            <Image Source="cinnamonWhite.png" HeightRequest="100" FlexLayout.AlignSelf="Center"/>
+            <Image Source="Discount.png" HeightRequest="80" FlexLayout.AlignSelf="Center"/>
+            <Label Text="Discount Approvals" FontSize="24" TextColor="#008FBE" FlexLayout.AlignSelf="Center"/>
+
+            <StackLayout Padding="20,10,20,10" FlexLayout.AlignSelf="stretch" HorizontalOptions="CenterAndExpand">
+                <Entry x:Name="userNameEntry" Placeholder="User Name" PlaceholderColor="Silver" BackgroundColor="Transparent" FontSize="Medium" Text="{Binding UserName}">
+                    <Entry.BackgroundColor>
+                        <OnPlatform x:TypeArguments="Color" iOS="#ffffff" Android="Transparent"/>
+                    </Entry.BackgroundColor>
+                    <Entry.TextColor>
+                        <OnPlatform x:TypeArguments="Color" iOS="Black" Android="White"/>
+                    </Entry.TextColor>
+                </Entry>
+                <Entry Placeholder="Password" PlaceholderColor="Silver" BackgroundColor="Transparent" FontSize="Medium" IsPassword="true" Text="{Binding Password}">
+                    <Entry.Behaviors>
+                        <customBehaviors:EventToCommandBehavior EventName="Completed" Command="{Binding PasswordEntryCompletedCommand}" CommandParameter="{x:Reference userNameEntry}"/>
+                    </Entry.Behaviors>
+                    <Entry.BackgroundColor>
+                        <OnPlatform x:TypeArguments="Color" iOS="#ffffff" Android="Transparent"/>
+                    </Entry.BackgroundColor>
+                    <Entry.TextColor>
+                        <OnPlatform x:TypeArguments="Color" iOS="Black" Android="White"/>
+                    </Entry.TextColor>
+                </Entry>
+
+                <Label Text="{Binding Message}" FontSize="Small" TextColor="Yellow" FlexLayout.AlignSelf="Start"/>
+            </StackLayout>
+
+            <ActivityIndicator FlexLayout.AlignSelf="Center" HeightRequest="50" IsRunning="{Binding IsRunningIndicator}" Color="Navy"/>
+
+            <Button x:Name="loginButton" Text="Login" BackgroundColor="#211261" TextColor="White" WidthRequest="100" HeightRequest="40" Command="{Binding LoginButtonTappedCommand}" CommandParameter="{x:Reference userNameEntry}">
+                <Button.BorderRadius>
+                    <OnPlatform x:TypeArguments="x:Int32" iOS="10" Android="10" />
+                </Button.BorderRadius>
+            </Button>
+
+            <Label Text="Designed and developed by Cinnamon IT  |  All rights reserved  &#10;  Copyrights © 2018" 
+                   FontSize="10"
+                   LineBreakMode="CharacterWrap"
+                   HorizontalTextAlignment="Center"
+                   FlexLayout.AlignSelf="Stretch" 
+                   FlexLayout.Order = "2" 
+                   TextColor="#adadad"/>
+            
+        </FlexLayout>
+        
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Name="currentPage" x:Class="Discount.Views.DiscountDetailsView" xmlns:customRenderer="using:Discount.CustomControls;assembly=CustomViewCell" xmlns:customBehaviors="using:Discount.Behaviors;assembly=EventToCommandBehavior">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <StackLayout Orientation="Vertical" BackgroundColor="#211261" HeightRequest="50">
+                <Label HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding GroupReservationID}" TextColor="White" FontSize="22" FontAttributes="Bold" />
+            </StackLayout>
+            <ListView x:Name="discountDetailsList" SeparatorColor="#660099" SeparatorVisibility="Default" CachingStrategy="RetainElement" ItemsSource="{Binding DiscountDetailsList,Mode=TwoWay}" SelectedItem="{Binding SelectedItemModel, Mode=TwoWay}" HasUnevenRows="true">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <customRenderer:CustomViewCell SelectedBackgroundColor="#d8e7ff">
+                            <ViewCell.View>
+                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="10,10,10,10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="100" />
+                                            <ColumnDefinition Width="40" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" Text="{Binding GuestName}" FontAttributes="Bold" FontSize="20" TextColor="Black" Grid.RowSpan="2" />
+                                        <Label Grid.Column="0" Grid.Row="1" Text="{Binding ReservationID}" FontSize="20" TextColor="Black" />
+                                        <Label Grid.Column="1" Grid.Row="1" Text="{Binding ApprovalStatus}" TextColor="{Binding StatusColor}" FontAttributes="None" FontSize="Medium" />
+                                        <Image Grid.Column="2" Grid.Row="0" Source="{Binding ExpandIcon}" Grid.RowSpan="2">
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={x:Reference currentPage}, Path=BindingContext.ExpandSelectedCommand}" NumberOfTapsRequired="1" CommandParameter="{x:Reference discountDetailsList}" />
+                                            </Image.GestureRecognizers>
+                                        </Image>
+                                    </Grid>
+                                    <StackLayout x:Name="ExpandedLayout" Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="10,10,10,10" IsVisible="{Binding IsExpanded, Mode=TwoWay}">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Column="0" Grid.Row="0" Text="Arrival Date" FontAttributes="Bold" FontSize="Medium" TextColor="Black" />
+                                            <Label Grid.Column="1" Grid.Row="0" Text="{Binding ArrivalDate}" FontAttributes="None" FontSize="Medium" />
+                                            <Label Grid.Column="0" Grid.Row="1" Text="Departure Date" FontAttributes="Bold" FontSize="Medium" TextColor="Black" />
+                                            <Label Grid.Column="1" Grid.Row="1" Text="{Binding DepartureDate}" FontAttributes="None" FontSize="Medium" />
+                                            <Label Grid.Column="0" Grid.Row="2" Text="Room Type" FontAttributes="Bold" FontSize="Medium" TextColor="Black" />
+                                            <Label Grid.Column="1" Grid.Row="2" Text="{Binding RoomType}" FontAttributes="None" FontSize="Medium" />
+                                            <Label Grid.Column="0" Grid.Row="3" Text="Meal Plan" FontAttributes="Bold" FontSize="Medium" TextColor="Black" />
+                                            <Label Grid.Column="1" Grid.Row="3" Text="{Binding MealPlan}" FontAttributes="None" FontSize="Medium" />
+                                            <Label Grid.Column="0" Grid.Row="4" Text="Occupancy" FontAttributes="Bold" FontSize="Medium" TextColor="Black" />
+                                            <Label Grid.Column="1" Grid.Row="4" Text="{Binding AdultPaxCount}" FontAttributes="None" FontSize="Medium" />
+                                            <Label Grid.Column="0" Grid.Row="5" Text="Contracted Rate" FontAttributes="Bold" FontSize="Medium" TextColor="Black" />
+                                            <Label Grid.Column="1" Grid.Row="5" Text="{Binding Amount_C}" FontAttributes="None" FontSize="Medium" />
+                                            <Label Grid.Column="0" Grid.Row="6" Text="Discount Rate" FontAttributes="Bold" FontSize="Medium" TextColor="Black" />
+                                            <Label Grid.Column="1" Grid.Row="6" Text="{Binding Amount_D}" FontAttributes="None" FontSize="Medium" />
+                                            <Label Grid.Column="0" Grid.Row="7" Text="Special Rate" FontAttributes="Bold" FontSize="Medium" TextColor="Black" />
+                                            <Label Grid.Column="1" Grid.Row="7" Text="{Binding Amount}" FontAttributes="None" FontSize="Medium" />
+                                            <Label Grid.Column="0" Grid.Row="8" Text="Currency" FontAttributes="Bold" FontSize="Medium" TextColor="Black" />
+                                            <Label Grid.Column="1" Grid.Row="8" Text="{Binding Currency}" FontAttributes="None" FontSize="Medium" />
+                                            <Label Grid.Column="0" Grid.Row="9" Text="Discount Made By" FontAttributes="Bold" FontSize="Medium" TextColor="Black" />
+                                            <Label Grid.Column="1" Grid.Row="9" Text="{Binding DiscountMadeUser}" FontAttributes="None" FontSize="Medium" />
+                                            <Label Grid.Column="0" Grid.Row="10" Text="Sales Agent" FontAttributes="Bold" FontSize="Medium" TextColor="Black" />
+                                            <Label Grid.Column="1" Grid.Row="10" Text="{Binding SalesAgent}" FontAttributes="None" FontSize="Medium" />
+                                        </Grid>
+                                        <StackLayout HeightRequest="50" Margin="0,20,0,0" IsVisible="{Binding IsButtonsVisible}">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="40" />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Button Grid.Row="0" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="40" BorderRadius="10" WidthRequest="100" BackgroundColor="Green" TextColor="White" Text="Approve" FontSize="14" 
+                                                        Command="{Binding Source={x:Reference currentPage}, Path=BindingContext.ApproveCommand}" />
+                                                <Button Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HeightRequest="40" HorizontalOptions="Center" BorderRadius="10" WidthRequest="100" BackgroundColor=" Maroon" TextColor="White" Text="Reject"
+                                                    FontSize="14" Command="{Binding Source={x:Reference currentPage}, Path=BindingContext.RejectCommand}" />
+                                            </Grid>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </StackLayout>
+                            </ViewCell.View>
+                        </customRenderer:CustomViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Behaviors>
+                    <customBehaviors:EventToCommandBehavior EventName="ItemSelected" Command="{Binding ListItemSelectedCommand}" CommandParameter="{x:Reference discountDetailsList}" />
+                </ListView.Behaviors>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
