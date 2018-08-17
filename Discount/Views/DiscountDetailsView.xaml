@@ -5,7 +5,8 @@
             <StackLayout Orientation="Vertical" BackgroundColor="#211261" HeightRequest="50">
                 <Label HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding GroupReservationID}" TextColor="White" FontSize="22" FontAttributes="Bold" />
             </StackLayout>
-            <ListView x:Name="discountDetailsList" SeparatorColor="#660099" SeparatorVisibility="Default" CachingStrategy="RetainElement" ItemsSource="{Binding DiscountDetailsList,Mode=TwoWay}" SelectedItem="{Binding SelectedItemModel, Mode=TwoWay}" HasUnevenRows="true">
+            <ActivityIndicator VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" HeightRequest="50" IsRunning="{Binding IsRunningIndicator}" IsVisible="{Binding IsRunningIndicator}" Color="Navy" />
+            <ListView x:Name="discountDetailsList" SeparatorColor="#660099" SeparatorVisibility="Default" CachingStrategy="RetainElement" ItemsSource="{Binding DiscountDetailsList,Mode=TwoWay}" SelectedItem="{Binding SelectedItemModel, Mode=TwoWay}" HasUnevenRows="true" IsVisible="{Binding IsListVisible}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <customRenderer:CustomViewCell SelectedBackgroundColor="#d8e7ff">

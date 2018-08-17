@@ -55,7 +55,7 @@
                     <customBehaviors:EventToCommandBehavior EventName="ItemSelected" Command="{Binding ListItemSelectedCommand}" CommandParameter = "{x:Reference discountGroupListView}"/>
                 </ListView.Behaviors>
             </ListView>
-            <ActivityIndicator VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="50" IsRunning="{Binding IsRunningIndicator}" IsVisible="{Binding IsRunningIndicator}" Color="Navy" />
+            <ActivityIndicator VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" HeightRequest="50" IsRunning="{Binding IsRunningIndicator}" IsVisible="{Binding IsRunningIndicator}" Color="Navy" />
             <StackLayout HeightRequest="50" IsVisible="{Binding IsButtonVisible}">
                 <Grid>
                     <Grid.RowDefinitions>

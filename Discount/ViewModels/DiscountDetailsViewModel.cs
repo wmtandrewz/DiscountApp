@@ -31,6 +31,8 @@ namespace Discount.ViewModels
         private ObservableCollection<DiscountDetailsModel> _discountDetailsList;
         private string _groupReservationID;
         private DiscountDetailsModel _selectedItemModel;
+        private bool _isRunningIndicator = false;
+        private bool _isListVisible = true;
 
         public string GroupReservationID
         {
@@ -73,6 +75,34 @@ namespace Discount.ViewModels
                 OnPropertyChanged("SelectedItemModel");
             }
         }
+
+        public bool IsRunningIndicator
+        {
+            get
+            {
+                return _isRunningIndicator;
+            }
+
+            set
+            {
+                _isRunningIndicator = value;
+                OnPropertyChanged("IsRunningIndicator");
+            }
+        }
+
+        public bool IsListVisible
+        {
+            get
+            {
+                return _isListVisible;
+            }
+
+            set
+            {
+                _isListVisible = value;
+                OnPropertyChanged("IsListVisible");
+            }
+        }
        
         #endregion Binding Properties
 
@@ -89,54 +119,79 @@ namespace Discount.ViewModels
 
         private async void ApproveDiscount()
         {
-            DiscountPayload discountPayload = new DiscountPayload();
-            discountPayload.ImHotelId = Constants._hotel_number;
-            discountPayload.ImReservaId = Convert.ToInt32(TempSelectedModel.ReservationID).ToString();
-            discountPayload.ImOrderId = "1";
-            discountPayload.ImScoodApprover = Settings.Username;
-            discountPayload.ImStatus = "A";
-            discountPayload.ImReason = $"Approved by {Settings.Username}";
+            var responce = await Application.Current.MainPage.DisplayAlert("Approve Discount ?", "Please press Yes to approve the discount requests or No to cancel.", "Yes", "No");
 
-
-            var responce = await POSTServicesAPI.ApproveDiscount(discountPayload);
-
-            if (responce == "Success")
+            if (responce)
             {
-                //Changing status on view
-                ChangeStatus("Approved");
+                IsRunningIndicator = true;
+                IsListVisible = false;
 
-                await Application.Current.MainPage.DisplayAlert("Approved!", responce, "OK");
-            }
-            else
-            {
-                await Application.Current.MainPage.DisplayAlert("Error!", responce, "OK");
+                DiscountPayload discountPayload = new DiscountPayload();
+                discountPayload.ImHotelId = Constants._hotel_number;
+                discountPayload.ImReservaId = Convert.ToInt32(TempSelectedModel.ReservationID).ToString();
+                discountPayload.ImOrderId = "1";
+                discountPayload.ImScoodApprover = Settings.Username;
+                discountPayload.ImStatus = "A";
+                discountPayload.ImReason = $"Approved by {Settings.Username}";
+
+
+                var ServiceRes = await POSTServicesAPI.ApproveDiscount(discountPayload);
+
+                if (ServiceRes == "Success")
+                {
+                    //Changing status on view
+                    ChangeStatus("Approved");
+
+                    await Application.Current.MainPage.DisplayAlert("Approved!", ServiceRes, "OK");
+                    IsRunningIndicator = false;
+                    IsListVisible = true;
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error!", ServiceRes, "OK");
+                    IsRunningIndicator = false;
+                    IsListVisible = true;
+                }
             }
 
         }
 
         private async void RejectDiscount()
         {
-            DiscountPayload discountPayload = new DiscountPayload();
-            discountPayload.ImHotelId = Constants._hotel_number;
-            discountPayload.ImReservaId = Convert.ToInt32(TempSelectedModel.ReservationID).ToString();
-            discountPayload.ImOrderId = "1";
-            discountPayload.ImScoodApprover = Settings.Username;
-            discountPayload.ImStatus = "R";
-            discountPayload.ImReason = $"Rejected by {Settings.Username}";
 
+            var responce = await Application.Current.MainPage.DisplayAlert("Reject Discount ?", "Please press Yes to reject the discount requests or No to cancel.", "Yes", "No");
 
-            var responce = await POSTServicesAPI.ApproveDiscount(discountPayload);
-
-            if (responce == "Success")
+            if (responce)
             {
-                //Changing status on view
-                ChangeStatus("Rejected");
+                IsRunningIndicator = true;
+                IsListVisible = false;
 
-                await Application.Current.MainPage.DisplayAlert("Rejected!", responce, "OK");
-            }
-            else
-            {
-                await Application.Current.MainPage.DisplayAlert("Error!", responce, "OK");
+                DiscountPayload discountPayload = new DiscountPayload();
+                discountPayload.ImHotelId = Constants._hotel_number;
+                discountPayload.ImReservaId = Convert.ToInt32(TempSelectedModel.ReservationID).ToString();
+                discountPayload.ImOrderId = "1";
+                discountPayload.ImScoodApprover = Settings.Username;
+                discountPayload.ImStatus = "R";
+                discountPayload.ImReason = $"Rejected by {Settings.Username}";
+
+
+                var serviceRes = await POSTServicesAPI.ApproveDiscount(discountPayload);
+
+                if (serviceRes == "Success")
+                {
+                    //Changing status on view
+                    ChangeStatus("Rejected");
+
+                    await Application.Current.MainPage.DisplayAlert("Rejected!", serviceRes, "OK");
+                    IsRunningIndicator = false;
+                    IsListVisible = true;
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error!", serviceRes, "OK");
+                    IsRunningIndicator = false;
+                    IsListVisible = true;
+                }
             }
 
         }
