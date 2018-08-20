@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Discount.Views.MasterDetailView">
+<MasterDetailPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="Discount.Views.MasterDetailView">
 
     <MasterDetailPage.Master>
         <ContentPage Title="Options" x:Name="MasterPage">
@@ -7,6 +10,11 @@
                 <StackLayout FlexLayout.AlignSelf="Stretch" Orientation="Horizontal" Padding="10" BackgroundColor="#6D2276">
                     <Image Source="Discount.png" HeightRequest="60" WidthRequest="60" FlexLayout.AlignSelf="center" HorizontalOptions="Start"/>
                     <Label Text="Discount Approvals" TextColor="White" FontSize="Large" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand"/>
+                </StackLayout>
+
+                <StackLayout FlexLayout.AlignSelf="Stretch" Orientation="Horizontal" Padding="10">
+                    <Label Text="Logged-in User" FontAttributes="Bold" FlexLayout.AlignSelf="Start" FontSize="16" WidthRequest="200"/>
+                    <Label Text="{Binding UserName}" FlexLayout.AlignSelf="Start" FontSize="14"/>
                 </StackLayout>
 
                 <Button Text="Sign-out" TextColor="#211261" Command="{Binding SignOutCommand}" FlexLayout.AlignSelf="Stretch" FlexLayout.Order="2"/>

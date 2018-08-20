@@ -25,7 +25,7 @@
                                         <Label Grid.Column="0" Grid.Row="0" Text="{Binding GuestName}" FontAttributes="Bold" FontSize="20" TextColor="Black" Grid.RowSpan="2" />
                                         <Label Grid.Column="0" Grid.Row="1" Text="{Binding ReservationID}" FontSize="20" TextColor="Black" />
                                         <Label Grid.Column="1" Grid.Row="1" Text="{Binding ApprovalStatus}" TextColor="{Binding StatusColor}" FontAttributes="None" FontSize="Medium" />
-                                        <Image Grid.Column="2" Grid.Row="0" Source="{Binding ExpandIcon}" Grid.RowSpan="2">
+                                        <Image Grid.Column="2" Grid.Row="0" Source="{Binding ExpandIcon}" Grid.RowSpan="2" IsVisible="{Binding IsExpanded}">
                                             <Image.GestureRecognizers>
                                                 <TapGestureRecognizer Command="{Binding Source={x:Reference currentPage}, Path=BindingContext.ExpandSelectedCommand}" NumberOfTapsRequired="1" CommandParameter="{x:Reference discountDetailsList}" />
                                             </Image.GestureRecognizers>

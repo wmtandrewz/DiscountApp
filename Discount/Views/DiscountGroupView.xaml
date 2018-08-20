@@ -5,7 +5,7 @@
             <StackLayout Orientation="Vertical" BackgroundColor="#211261" HeightRequest="50">
                 <Label HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="{Binding ReservationID}" TextColor="White" FontSize="22" FontAttributes="Bold" />
             </StackLayout>
-            <ListView x:Name="discountGroupListView" RowHeight="250" SeparatorColor="#660099" SeparatorVisibility="Default" CachingStrategy="RetainElement" ItemsSource="{Binding DiscountGroupList,Mode=OneWay}" SelectedItem="{Binding SelectedDiscGroup}" IsEnabled="{Binding IsButtonVisible}">
+            <ListView x:Name="discountGroupListView" RowHeight="250" SeparatorColor="#660099" SeparatorVisibility="Default" CachingStrategy="RetainElement" ItemsSource="{Binding DiscountGroupList,Mode=OneWay}" SelectedItem="{Binding SelectedDiscGroup}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <customRenderer:CustomViewCell SelectedBackgroundColor="#d8e7ff">

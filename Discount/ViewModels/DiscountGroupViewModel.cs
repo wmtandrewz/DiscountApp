@@ -30,7 +30,7 @@ namespace Discount.ViewModels
         private string _reservationID;
         private DiscountGroupModel _selectedDiscGroup;
         private bool _isRunningIndicator = false;
-        private bool _isButtonVisible = true;
+        private bool _isButtonVisible = Constants._selectedDiscountHeader.Status == "Approved" ? false : Constants._selectedDiscountHeader.Status == "Rejected" ? false : true;
 
         public string ReservationID
         {

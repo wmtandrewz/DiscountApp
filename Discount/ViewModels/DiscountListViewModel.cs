@@ -53,6 +53,7 @@ namespace Discount.ViewModels
             {
                 _pendingDiscountsList = value;
                 OnPropertyChanged("PendingDiscountsList");
+                DisplayCharts();
             }
         }
 
@@ -468,6 +469,22 @@ namespace Discount.ViewModels
             });
             IsRunningIndicator = false;
             IsListVisible = true;
+        }
+
+        private void DisplayCharts()
+        {
+            List<int> chartValueList = new List<int>()
+            {
+                PendingDiscountsList.Count(X => X.Status == "Pending"),
+                PendingDiscountsList.Count(X => X.Status == "Approved"),
+                PendingDiscountsList.Count(X => X.Status == "Rejected"),
+                PendingDiscountsList.Count
+            };
+      
+
+            MessagingCenter.Send<DiscountListViewModel, List<int>>(this, "DisplayCharts", chartValueList);
+
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
