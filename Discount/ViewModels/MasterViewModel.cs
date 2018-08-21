@@ -10,10 +10,10 @@ namespace Discount.ViewModels
 {
     public class MasterViewModel
     {
-
         public ICommand SignOutCommand { get; }
+        public ICommand ExitAppCommand { get; }
 
-        public string UserName 
+        public string UserName
         {
             get
             {
@@ -21,10 +21,24 @@ namespace Discount.ViewModels
             }
         }
 
+        public string CurentDate
+        {
+            get
+            {
+                return DateTime.Now.ToString("yyyy MMM dd");
+            }
+        }
+
 
         public MasterViewModel()
         {
             SignOutCommand = new Command(SignOutButtonPressed);
+            ExitAppCommand = new Command(ExitAppPressed);
+
+        }
+
+        private void ExitAppPressed()
+        {
 
         }
 

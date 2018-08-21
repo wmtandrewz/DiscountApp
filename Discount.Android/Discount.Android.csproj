@@ -117,6 +117,7 @@
     <AndroidResource Include="Resources\drawable\Forward_icon.png" />
     <AndroidResource Include="Resources\drawable\Arrow_Down.png" />
     <AndroidResource Include="Resources\drawable\Arrow_Up.png" />
+    <AndroidResource Include="Resources\drawable\lifestyle.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable-hdpi\" />
