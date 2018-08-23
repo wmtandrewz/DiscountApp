@@ -69,6 +69,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DiscountDetailsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\DiscountPayload.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\IApplicationExit.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Models\" />

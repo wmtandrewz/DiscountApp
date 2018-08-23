@@ -5,6 +5,7 @@ using Xamarin.Forms;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Discount.Helpers;
+using System.Threading;
 
 namespace Discount.ViewModels
 {
@@ -39,7 +40,7 @@ namespace Discount.ViewModels
 
         private void ExitAppPressed()
         {
-
+            DependencyService.Get<IApplicationExit>().Exit();
         }
 
         private void SignOutButtonPressed()
